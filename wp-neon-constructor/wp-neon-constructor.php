@@ -10,8 +10,6 @@
 
 namespace WPNeonConstructor;
 
-use \Nillkizz\PluginBase;
-
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
@@ -28,13 +26,13 @@ if (!class_exists('WPNeonConstructor')) :
   add_action('n_core_defined', '\WPNeonConstructor\wp_neon_constructor');
   function wp_neon_constructor()
   {
-    class WPNeonConstructor extends PluginBase
+    class WPNeonConstructor extends \Nillkizz\PluginBase
     {
       public $includes = [
         // 'rest_api.php', // Uncomment, if rest needs
       ];
       public $shortcodes = [
-        'wp-neon-constructor.php'
+        'wp-neon-constructor',
       ];
       public $js_scripts = [
         'alpinejs'
