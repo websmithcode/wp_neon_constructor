@@ -22,7 +22,7 @@ if (!class_exists('Core')) :
   class Core extends PluginBase
   {
     public $includes = [
-      // Utils
+      'includes/shortcodes.php',
       'includes/utils.php',
     ];
     public $css_styles = [
@@ -59,10 +59,3 @@ if (!class_exists('Core')) :
 // Instantiate.
 
 endif;
-
-register_activation_hook(__FILE__, function () {
-  add_option('nillkizz_core_activated', true);
-});
-register_deactivation_hook(__FILE__, function () {
-  delete_option('nillkizz_core_activated');
-});

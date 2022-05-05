@@ -33,6 +33,9 @@ if (!class_exists('WPNeonConstructor')) :
       public $includes = [
         // 'rest_api.php', // Uncomment, if rest needs
       ];
+      public $shortcodes = [
+        'wp-neon-constructor.php'
+      ];
       public $js_scripts = [
         ['name' => 'wp_neon_constructor-main', 'path' => 'public/js/main.js'],
       ];
