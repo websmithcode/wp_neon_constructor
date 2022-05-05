@@ -37,7 +37,7 @@ if (!class_exists('WPNeonConstructor')) :
         'wp-neon-constructor.php'
       ];
       public $js_scripts = [
-        ['name' => 'wp_neon_constructor-main', 'path' => 'public/js/main.js'],
+        'alpinejs'
       ];
       public $css_styles = [
         ['name' => 'wp_neon_constructor-style', 'path' => 'public/css/style.css']
