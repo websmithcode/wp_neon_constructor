@@ -1,0 +1,13 @@
+[x-cloak],
+[v-cloak] {
+  opacity: 0;
+}
+
+html[DisableScroll] {
+  overflow-y: scroll;
+}
+
+html[DisableScroll] body {
+  overflow-y: hidden;
+  height: 100vh;
+}
