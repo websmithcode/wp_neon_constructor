@@ -31,8 +31,8 @@ services:
         source: ${PWD}/config/php/uploads.ini
         target: /usr/local/etc/php/conf.d/uploads.ini
       # - ./wp-app/:/var/www/html/ # Full wordpress project
-      - ./plugin-name/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
-      - ./nillkizz-core/:/var/www/html/wp-content/plugins/nillkizz-core # Plugin development
+      - ./wp-neon-constructor/:/var/www/html/wp-content/plugins/wp-neon-constructor # Plugin development
+      - ./nillkizz-core/:/var/www/html/wp-content/plugins/nillkizz-core # Core Plugin
       #- ./theme-name/:/var/www/html/wp-content/themes/theme-name     # Theme development
 
       # wpcli:
