@@ -90,12 +90,10 @@ Press Enter/Return for a new line"></textarea>
     <div class="form-body">
       <?php echo $settings['popup_form'] ?>
     </div>
-  </div>
-  <template x-teleport="#wnca-form form">
     <div class="fields">
       <input type="text" x-model="val.text" name="text" hidden>
       <input type="text" x-model="val.font" name="font" hidden>
       <input type="text" x-model="val.color" name="color" hidden>
     </div>
-  </template>
+  </div>
 </div>
