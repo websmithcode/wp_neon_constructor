@@ -1,0 +1,452 @@
+.absolute {
+  position: absolute;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+#wnca ul {
+  list-style: none;
+}
+
+
+#wnca {
+  --border: solid 2px black;
+  --radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  transition: opacity 1s;
+}
+
+#wnca .form {
+  width: 30%;
+  min-width: 300px;
+}
+
+#wnca .tabs {
+  --height: 36px;
+  display: flex;
+  border: var(--border);
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+}
+
+#wnca .tabs .tab button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  line-height: 0.35;
+  text-transform: uppercase;
+  padding-left: 24px;
+  padding-right: 24px;
+  transition: all .2s;
+  background-color: white;
+  color: black;
+}
+
+#wnca .tabs .tab button:hover {
+  background-color: white;
+  color: black;
+}
+
+#wnca .tabs .tab,
+#wnca .tabs .tab button {
+  height: var(--height);
+  width: 100%;
+}
+
+#wnca .tabs .tab {
+  --transparent-border-width: calc(var(--height) / 2);
+  position: relative;
+  padding: 0;
+}
+
+#wnca .tabs .tab:not(:last-child)::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  border-top: var(--transparent-border-width) solid transparent;
+  border-left-style: solid;
+  border-left-color: white;
+  border-left-width: 9px;
+  border-bottom: var(--transparent-border-width) solid transparent;
+  height: 100%;
+  width: 9px;
+  top: 0;
+  left: calc(100% - 1px);
+  z-index: 1;
+  opacity: 1;
+  transition: all .2s;
+}
+
+#wnca .tabs .tab.active::after {
+  border-left-width: 0;
+}
+
+#wnca .tabs .tab::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  border-top: var(--transparent-border-width) solid transparent;
+  border-left: 9px solid black;
+  border-bottom: var(--transparent-border-width) solid transparent;
+  height: 100%;
+  width: 9px;
+  top: 0;
+  left: 100%;
+  z-index: 1;
+}
+
+
+#wnca .tabs .tab button {
+  border: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#wnca .tabs .tab.active button {
+  background-color: #000;
+  color: #fff;
+}
+
+#wnca .content {
+  padding: 20px;
+  border-left: var(--border);
+  border-right: var(--border);
+  min-height: 140px;
+}
+
+#wnca .footer {
+  padding: 20px;
+  border: var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+
+/* TABS */
+
+#wnca .content {
+  position: relative;
+}
+
+
+#wnca .tab-content .text textarea {
+  line-height: 1.1rem;
+  text-align: center;
+  color: grey;
+  height: 90px;
+  padding-top: 25px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  background-color: #F5F5F5;
+  resize: none;
+  border-radius: var(--radius);
+  border: black solid 2px;
+  margin-bottom: 2px;
+}
+
+#wnca .tab-content .text textarea:focus {
+  color: #555;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 0, 0, .6);
+}
+
+#wnca .tab-content .text textarea:focus::placeholder {
+  color: transparent;
+}
+
+#wnca .tab-content .text .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+#wnca .tab-content .text .buttons button:hover,
+#wnca .tab-content .text .buttons button:focus {
+  background-color: #efefef;
+  border: #000 solid 2px;
+  color: #000;
+}
+
+#wnca .tab-content .text .buttons button.active {
+  box-shadow: #000 1px 1px 5px;
+  border: #000 solid 2px;
+}
+
+#wnca .tab-content .fonts .title {
+  text-align: center;
+  text-transform: uppercase;
+  color: gray;
+  margin-bottom: 5px;
+}
+
+#wnca .tab-content .fonts-items {
+  gap: 3px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#wnca .tab-content .fonts .font {
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px transparent;
+  transition: all .2s;
+  display: flex;
+}
+
+#wnca .tab-content .fonts .font img {
+  margin: auto;
+}
+
+#wnca .tab-content .fonts .font.active {
+  background-color: black;
+}
+
+#wnca .tab-content .fonts .font.active img {
+  filter: brightness(100);
+}
+
+#wnca .tab-content .fonts .font:hover {
+  box-shadow: 1px 1px 4px gray;
+}
+
+
+#wnca .tab-content .color-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#wnca .tab-content .color-items .color {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+#wnca .tab-content .color-items .color .icon {
+  position: relative;
+}
+
+#wnca .tab-content .color-items .color .icon * {
+  transition: all .3s;
+}
+
+#wnca .tab-content .color-items .color .icon i {
+  font-size: 30px;
+  height: 100%;
+  width: 100%;
+}
+
+#wnca .tab-content .color-items .color .icon i.w {
+  position: absolute;
+  color: white;
+  opacity: 0;
+  top: 0;
+  left: 0;
+}
+
+#wnca .tab-content .color-items .color:hover .icon i.w,
+#wnca .tab-content .color-items .color.active .icon i.w {
+  opacity: 1;
+}
+
+#wnca .tab-content .color-items .color:hover .icon i:not(.w) {
+  text-shadow: white 0px 0px 1px, white 0px 0px 2px, currentColor 0px 0px 3px, currentColor 0px 0px 6px, currentColor 0px 0px 11px, currentColor 0px 0px 15px;
+}
+
+#wnca .tab-content .color-items .color.active .icon i:not(.w) {
+  text-shadow: white 0px 0px 1px, white 0px 0px 2px, currentColor 0px 0px 8px, currentColor 0px 0px 12px, currentColor 0px 0px 16px, currentColor 0px 0px 22px, currentColor 0px 0px 30px;
+}
+
+#wnca .tab-content .color-items .color-name {
+  font-size: 0.6rem;
+  line-height: 1;
+  text-align: center;
+}
+
+#wnca .tab-content .color-preview {
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  gap: 5px;
+}
+
+#wnca .tab-content .color-preview a {
+  color: #337ab7;
+}
+
+/* FOOTER */
+
+#wnca .footer .submit {
+  width: 100%;
+}
+
+
+/* PREVIEW */
+
+#wnca .preview-wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 740px;
+  max-height: 740px;
+}
+
+#wnca .preview {
+  position: relative;
+  padding-top: 90%;
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wnca .preview .content {
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#wnca .preview .switcher {
+  background: lightgray;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  border: var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+
+#wnca .preview .switcher * {
+  padding: 5px;
+}
+
+#wnca .preview .switcher::before {
+  content: ' ';
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background-color: black;
+  transition: left .4s;
+}
+
+#wnca .preview .switcher.off::before {
+  left: 50%;
+}
+
+#wnca .preview .text {
+  padding: 20px 40px;
+  position: absolute;
+  font-size: 56px;
+  cursor: move;
+  user-select: none;
+  line-height: .98;
+  transition: text-shadow 1s, color 1s;
+  color: white;
+}
+
+/* Modal PopUp */
+#wnca-form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#wnca-form .backdrop {
+  background-color: #0003;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wnca-form .backdrop .popup-body {
+  --border: solid 2px black;
+  max-width: 600px;
+  background-color: #fff;
+  border: var(--border);
+  position: relative;
+  max-height: calc(100% - 50px);
+  max-width: calc(100% - 20px);
+  overflow-y: auto;
+}
+
+#wnca-form .backdrop .popup-body .popup-header {
+  background-color: #ffffffee;
+  height: 40px;
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 5px;
+}
+
+#wnca-form .backdrop .popup-body .popup-form {
+  padding: 20px;
+}
+
+#wnca-form .backdrop .popup-header .close {
+  --size: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: var(--size);
+  width: var(--size);
+  cursor: pointer;
+}
+
+#wnca-form .backdrop .popup-body .close.dashicons:before {
+  display: block;
+  color: darkred;
+  font-size: var(--size);
+  height: var(--size);
+  width: var(--size);
+}
+
+
+@media screen and (min-width: 580px) {
+  #wnca .preview .text {
+    font-size: 96px;
+  }
+  #wnca .tab-content .fonts-items{
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #wnca .tab-content .color-items .color {
+    width: 12%;
+  }
+
+  #wnca .preview .switcher {
+    top: 20px;
+    left: 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #wnca .tab-content .text textarea{
+    font-size: 20px;
+  }
+}

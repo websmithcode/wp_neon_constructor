@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Neon Constructor
  * Description: Template of plagin from dev kit
- * Version: 0.0.0
+ * Version: 0.1.2
  * Author: Alexander Smith
  * Author URI: https://t.me/alxndr_smith
  */
@@ -21,6 +21,7 @@ if (!class_exists('WPNeonConstructor')) :
   $depsChecker = new DepsChecker(__FILE__);
   $depsChecker->init([
     'advanced-custom-fields-pro',
+    'file-upload-types',
   ]);
 
   add_action('n_core_defined', '\WPNeonConstructor\wp_neon_constructor');
@@ -30,15 +31,18 @@ if (!class_exists('WPNeonConstructor')) :
     {
       public $includes = [
         // 'rest_api.php', // Uncomment, if rest needs
+        'includes/settings-page.php',
       ];
       public $shortcodes = [
         'wp-neon-constructor',
       ];
-      public $js_scripts = [
-        'alpinejs'
-      ];
+      public $js_scripts = [];
       public $css_styles = [
         ['name' => 'wp_neon_constructor-style', 'path' => 'public/css/style.css']
+      ];
+      public $image_sizes = [
+        ['FontPreview', 80, 25, false],
+        ['NeonPreview', 335, 150, true],
       ];
     }
 
