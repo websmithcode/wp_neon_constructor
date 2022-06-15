@@ -14,13 +14,18 @@
 #wnca {
   --border: solid 2px black;
   --radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
   justify-content: center;
   transition: opacity 1s;
 }
 
+#wnca .form {
+  max-width: 740px;
+  width: 100%;
+  margin: 0 auto;
+}
 #wnca .tabs {
   --height: 36px;
   display: flex;
@@ -297,6 +302,7 @@
   height: 100%;
   max-width: 740px;
   max-height: 740px;
+  margin: auto;
 }
 
 #wnca .preview {
@@ -394,5 +400,11 @@
 @media screen and (min-width: 1200px) {
   #wnca .tab-content .text textarea{
     font-size: 20px;
+  }
+  #wnca {
+    grid-template-columns: 1fr 2fr;
+  }
+  #wnca-form {
+    grid-column: 1 / span 2;
   }
 }

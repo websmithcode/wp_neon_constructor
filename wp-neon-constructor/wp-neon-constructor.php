@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Neon Constructor
  * Description: Template of plagin from dev kit
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Alexander Smith
  * Author URI: https://t.me/alxndr_smith
  */
@@ -13,8 +13,6 @@ namespace WPNeonConstructor;
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
-
-
 
 if (!class_exists('WPNeonConstructor')) :
   require('deps_check.php');

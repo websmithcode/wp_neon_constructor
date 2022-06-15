@@ -86,7 +86,7 @@ Press Enter/Return for a new line"></textarea>
     </div>
   </div>
 
-  <div id="wnca-form" class="form feedback-form" x-ref="feedbackForm">
+  <div id="wnca-form" class="feedback-form" x-ref="feedbackForm">
     <div class="form-body">
       <?php echo $settings['popup_form'] ?>
     </div>
