@@ -191,17 +191,31 @@
 }
 
 #wnca .tab-content .fonts .font {
-  padding: 5px;
   border: 1px solid gray;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 2px 2px 5px transparent;
   transition: all .2s;
   display: flex;
+  height: 0;
+  padding-top: 40%;
+  overflow: hidden;
+  position: relative;
 }
 
-#wnca .tab-content .fonts .font img {
+#wnca .tab-content .fonts .font .img-wrap img {
+  padding: 5px;
   margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 #wnca .tab-content .fonts .font.active {

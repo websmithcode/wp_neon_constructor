@@ -35,7 +35,9 @@ Press Enter/Return for a new line"></textarea>
             <div class="fonts-items" x-data="{fonts: JSON.parse($refs.fonts_json.innerHTML)}" x-init="setFont(fonts[0])">
               <template x-for="font in fonts">
                 <div class="font" @click="setFont(font)" :class="{active: font.name == val.font}">
-                  <img :src="font.preview" :alt="font.name">
+                  <div class="img-wrap">
+                    <img :src="font.preview" :alt="font.name">
+                  </div>
                 </div>
               </template>
             </div>
@@ -72,7 +74,6 @@ Press Enter/Return for a new line"></textarea>
         </div>
       </div>
       <div class="footer">
-        <button @click="$refs.feedbackForm.scrollIntoView()"><?php echo $settings['submit_text']; ?></button>
       </div>
     </div>
   </div>
