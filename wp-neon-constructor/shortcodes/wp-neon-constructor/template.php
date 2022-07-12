@@ -56,7 +56,7 @@ Press Enter/Return for a new line"></textarea>
           </script>
             <div class="color-items" x-data="{colors: JSON.parse($refs.colors_json.innerHTML)}" x-init="setColor(colors[0]);">
               <template x-for="color in colors">
-                <div class="color" :class="{active: color.color == val.color}" @click="setColor(color)">
+                <div class="color" :class="{active: color.color == val.color}" :data-color="color.color" @click="setColor(color)">
                   <div class="icon" :style="{color: color.color}">
                     <i class="dashicons dashicons-lightbulb"></i>
                     <i class="w dashicons dashicons-lightbulb"></i>
