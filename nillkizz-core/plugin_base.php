@@ -55,7 +55,7 @@ abstract class PluginBase
   function initialize()
   {
     $this->_add_image_sizes();
-    $this->_enqueue_styles();
+    add_action('wp_enqueue_scripts', [$this, '_enqueue_styles']);
     add_action('wp_enqueue_scripts', [$this, '_enqueue_scripts']);
 
     $this->_include();
@@ -66,10 +66,10 @@ abstract class PluginBase
 
   function enqueue_style($style)
   {
-    if (is_string($style)) $style = $this->_css_styles[$style];
+    if (is_string($style)) $style = isset($this->_css_styles[$style]) ? $this->_css_styles[$style] : $style;
 
     $gv = [$this, '_get_val'];
-    $handle = $style['name'];
+    $handle = is_string($style) ? $style : $style['name'];
     $src = $gv($style, 'url') ?: $this->plugin_url . $gv($style, 'path');
     $deps = $gv($style, 'deps', []);
     $ver = $gv($style, 'ver', $this->plugin_version);
@@ -80,7 +80,7 @@ abstract class PluginBase
 
   function enqueue_script($script)
   {
-    if (is_string($script)) $script = $this->_js_scripts[$script];
+    if (is_string($script)) $script = isset($this->_js_scripts[$script]) ? $this->_js_scripts[$script] : $script;
 
     $gv = [$this, '_get_val'];
     $handle = $script['name'];

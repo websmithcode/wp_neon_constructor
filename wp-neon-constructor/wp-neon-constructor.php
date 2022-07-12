@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Neon Constructor
  * Description: Template of plagin from dev kit
- * Version: 0.1.4
+ * Version: 0.1.5
  * Author: Alexander Smith
  * Author URI: https://t.me/alxndr_smith
  */
@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('WPNeonConstructor')) :
+
   require('deps_check.php');
   $depsChecker = new DepsChecker(__FILE__);
   $depsChecker->init([
@@ -36,6 +37,7 @@ if (!class_exists('WPNeonConstructor')) :
       ];
       public $js_scripts = [];
       public $css_styles = [
+        'dashicons',
         ['name' => 'wp_neon_constructor-style', 'path' => 'public/css/style.css']
       ];
       public $image_sizes = [
