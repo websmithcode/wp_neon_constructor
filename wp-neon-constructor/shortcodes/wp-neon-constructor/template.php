@@ -77,13 +77,15 @@ Press Enter/Return for a new line"></textarea>
       </div>
     </div>
   </div>
-  <div class="preview-wrapper">
-    <div class="preview" style="background-image: url(<?php echo $settings['background_image']['url']; ?>);" x-ref="preview">
-      <div class="switcher" x-data="{enabled: true}" :class="{off: !enabled}" @click="toggleLight(enabled = !enabled);">
-        <div class="off">Off</div>
-        <div class="on">On</div>
+  <div class="preview-container">
+    <div class="preview-wrapper">
+      <div class="preview" style="background-image: url(<?php echo $settings['background_image']['url']; ?>);" x-ref="preview">
+        <div class="switcher" x-data="{enabled: true}" :class="{off: !enabled}" @click="toggleLight(enabled = !enabled);">
+          <div class="off">Off</div>
+          <div class="on">On</div>
+        </div>
+        <div class="text" x-bind="text"></div>
       </div>
-      <div class="text" x-bind="text"></div>
     </div>
   </div>
 
