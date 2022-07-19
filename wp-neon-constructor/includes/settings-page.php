@@ -17,6 +17,10 @@ if (function_exists('acf_add_options_page')) :
     'active' => true,
   ));
 
+  add_action('admin_enqueue_scripts', function () {
+    wp_enqueue_style('wp_admin_neon_constructor', $this->plugin_url . 'admin/dist/style.css');
+  });
+
 endif;
 
 
@@ -54,14 +58,14 @@ if (function_exists('acf_add_local_field_group')) :
         'conditional_logic' => 0,
         'wrapper' => array(
           'width' => '',
-          'class' => '',
+          'class' => 'fonts',
           'id' => '',
         ),
         'acfe_repeater_stylised_button' => 0,
         'collapsed' => '',
         'min' => 0,
         'max' => 0,
-        'layout' => 'table',
+        'layout' => 'block',
         'button_label' => '',
         'acfe_field_group_condition' => 0,
         'sub_fields' => array(
@@ -83,6 +87,39 @@ if (function_exists('acf_add_local_field_group')) :
             'prepend' => '',
             'append' => '',
             'maxlength' => '',
+            'acfe_field_group_condition' => 0,
+          ),
+          array(
+            'key' => 'field_62d5869605ced',
+            'label' => 'Spelling',
+            'name' => 'spelling',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'choices' => array(
+              'lat' => 'lat',
+              'cyr' => 'cyr',
+            ),
+            'default_value' => array(
+              0 => 'lat',
+            ),
+            'allow_null' => 0,
+            'multiple' => 1,
+            'min' => '',
+            'max' => '',
+            'ui' => 1,
+            'ajax' => 0,
+            'return_format' => 'value',
+            'allow_custom' => 0,
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
             'acfe_field_group_condition' => 0,
           ),
           array(

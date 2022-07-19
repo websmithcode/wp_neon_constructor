@@ -28,11 +28,9 @@ Press Enter/Return for a new line"></textarea>
           <div class="fonts" x-show="activeTab=='Font'" x-transition.in.duration.600>
             <div class="title">Choose font</div>
             <script type="json" x-ref="fonts_json">
-              <?php echo json_encode(array_map(function ($font) {
-                return ['name' => $font['name'], 'preview' => $font['preview']['sizes']['FontPreview'], 'link' => $font['file']['url']];
-              }, $settings['fonts'])); ?>
+              <?php echo json_encode($fonts); ?>
           </script>
-            <div class="fonts-items" x-data="{fonts: JSON.parse($refs.fonts_json.innerHTML)}" x-init="setFont(fonts[0])">
+            <div class="fonts-items">
               <template x-for="font in fonts">
                 <div class="font" @click="setFont(font)" :class="{active: font.name == val.font}">
                   <div class="img-wrap">
@@ -44,15 +42,7 @@ Press Enter/Return for a new line"></textarea>
           </div>
           <div class="colors" x-show="activeTab=='Color'" x-transition.in.duration.600>
             <script type="json" x-ref="colors_json">
-              <?php echo json_encode(array_map(function ($color) {
-                return [
-                  'name' => $color['name'],
-                  'color' => $color['color'],
-                  'description' => $color['description'],
-                  'preview' => $color['preview']['sizes']['NeonPreview'],
-                  'detailPreview' => $color['detail-preview']['url']
-                ];
-              }, $settings['colors'])); ?>
+              <?php echo json_encode($colors); ?>
           </script>
             <div class="color-items" x-data="{colors: JSON.parse($refs.colors_json.innerHTML)}" x-init="setColor(colors[0]);">
               <template x-for="color in colors">

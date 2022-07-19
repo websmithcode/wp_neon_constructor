@@ -21,5 +21,25 @@ namespace WPNeonConstructor;
 
   $settings = get_fields('wp-neon-constructor');
   do_action('qm/debug', $settings['colors']);
+
+  $fonts = array_map(function ($font) {
+    return [
+      'name' => $font['name'],
+      'spelling' => $font['spelling'],
+      'preview' => $font['preview']['sizes']['FontPreview'],
+      'link' => $font['file']['url']
+    ];
+  }, $settings['fonts']);
+  $colors = array_map(function ($color) {
+    return [
+      'name' => $color['name'],
+      'color' => $color['color'],
+      'description' => $color['description'],
+      'preview' => $color['preview']['sizes']['NeonPreview'],
+      'detailPreview' => $color['detail-preview']['url']
+    ];
+  }, $settings['colors']);
+
+
   include_once 'template.php';
 })();

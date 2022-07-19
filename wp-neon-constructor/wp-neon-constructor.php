@@ -46,7 +46,6 @@ if (!class_exists('WPNeonConstructor')) :
       ];
     }
 
-
     global $wp_neon_constructor;
     // Instantiate only once.
     if (!isset($wp_neon_constructor)) {

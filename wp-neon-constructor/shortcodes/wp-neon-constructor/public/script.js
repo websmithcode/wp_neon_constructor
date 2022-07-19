@@ -1,18 +1,23 @@
 document.addEventListener('alpine:init', () => {
   Alpine.data('wnca', () => ({
     init() {
-      this.$watch('val.text', () => {
-        if (this.state.text.__BASE_SIZE == '') {
-          const __BASE_SIZE = parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);
-          this.state.text.fontSize = this.state.text.__BASE_SIZE = __BASE_SIZE;
-        }
-        const previewWidth = this.$refs.preview.clientWidth;
-        const textWidth = this.$refs.text.clientWidth;
-        this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
-        if (this.val.text.length == 0) this.state.text.fontSize = this.state.text.__BASE_SIZE;
-      })
+      this.$watch('val.text', this.updateFontSize.bind(this))
+
+      this.fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
+      console.log(this.filteredFonts())
+      this.setFont(this.fonts[0]);
     },
-    steps: ["Text", "Font", "Color", "Form"],
+    fonts: [],
+    filteredFonts() {
+      // returns filtered fonts based on font.spelling and this.getSpelling()
+      return this.fonts.filter(font => {
+        return font.spelling.includes(this.spelling);
+      });
+    },
+    get spelling() {
+      // Returns containing spelling like cyr or lat
+      return this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
+    },
     tabs: ["Text", "Font", "Color"],
     activeTab: 'Text',
     cache: {
@@ -22,14 +27,6 @@ document.addEventListener('alpine:init', () => {
       color: {
         preview: "",
         detailPreview: ""
-      },
-      popup: {
-        toggle(status) {
-          if (status) NillkizzUtils.disableScroll();
-          else NillkizzUtils.enableScroll();
-          this.isOpen = status;
-        },
-        isOpen: false,
       },
       text: {
         __BASE_SIZE: '',
@@ -44,6 +41,8 @@ document.addEventListener('alpine:init', () => {
         y: "17%",
       }
     },
+
+    // FormValues
     val: {
       text: '',
       font: '',
@@ -65,7 +64,16 @@ document.addEventListener('alpine:init', () => {
       this.val.color = color.color;
     },
     getLightShadow() {
-      return `white 0px 0px 5px, white 0px 0px 10px, ${this.val.color} 0px 0px 20px, ${this.val.color} 0px 0px 30px, ${this.val.color} 0px 0px 40px, ${this.val.color} 0px 0px 55px, ${this.val.color} 0px 0px 75px`
+      const shadows = [
+        `white 0px 0px 5px`,
+        `white 0px 0px 10px`,
+        `${this.val.color} 0px 0px 20px`,
+        `${this.val.color} 0px 0px 30px`,
+        `${this.val.color} 0px 0px 40px`,
+        `${this.val.color} 0px 0px 55px`,
+        `${this.val.color} 0px 0px 75px`
+      ];
+      return shadows.join(', ');
     },
     getDarkShadow() {
       const dimStep = 10;
@@ -94,6 +102,24 @@ document.addEventListener('alpine:init', () => {
       // set the element's new position:
       this.state.text.y = top + "px";
       this.state.text.x = left + "px";
+    },
+
+    updateFontSize() {
+      this.state.text.fontSize = this.state.text.__BASE_SIZE = this.fontBaseSize;
+
+      const previewWidth = this.$refs.preview.clientWidth;
+      const textWidth = this.$refs.text.clientWidth;
+
+
+      this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
+
+      if (this.val.text.length == 0) this.state.text.fontSize = this.fontBaseSize;
+    },
+
+    get fontBaseSize() {
+      if (this.state.text.__BASE_SIZE == '')
+        return parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);
+      else return this.state.text.__BASE_SIZE;
     },
 
 
