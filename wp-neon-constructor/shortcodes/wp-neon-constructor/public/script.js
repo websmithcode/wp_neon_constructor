@@ -3,6 +3,7 @@ document.addEventListener('alpine:init', () => {
     init() {
       this.$watch('val.text', this.updateFontSize.bind(this));
       this.$watch('val.text', this.updateSpelling.bind(this));
+      this.$watch('val.font', this.updateFontSize.bind(this));
       this.$watch('state.spelling', (ov, nv) => (nv !== ov) && this.updateFonts());
 
       this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
@@ -24,7 +25,6 @@ document.addEventListener('alpine:init', () => {
         detailPreview: ""
       },
       text: {
-        __BASE_SIZE: '',
         light: true,
         align: 'center',
         fontSize: '',
@@ -128,12 +128,10 @@ document.addEventListener('alpine:init', () => {
       this.state.spelling = this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
     },
     updateFontSize() {
-      this.state.text.fontSize = this.state.text.__BASE_SIZE = this.fontBaseSize;
-
       const previewWidth = this.$refs.preview.clientWidth;
       const textWidth = this.$refs.text.clientWidth;
 
-      this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
+      this.state.text.fontSize = Math.min(this.fontBaseSize, this.state.text.fontSize / (textWidth / previewWidth));
 
       if (this.val.text.length == 0) this.state.text.fontSize = this.fontBaseSize;
     },
