@@ -108,6 +108,7 @@ if (function_exists('acf_add_local_field_group')) :
             ),
             'default_value' => array(
               0 => 'lat',
+              1 => 'cyr',
             ),
             'allow_null' => 0,
             'multiple' => 1,
