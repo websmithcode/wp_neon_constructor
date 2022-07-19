@@ -73,8 +73,20 @@ document.addEventListener('alpine:init', () => {
     },
     getDarkShadow() {
       const dimStep = 10;
-      const color = RGB.from_hex(this.val.color);
-      return `${color.dim(dimStep).toHex()} 0px 1px 0px, ${color.dim(dimStep).toHex()} 0px 2px 0px, ${color.dim(dimStep).toHex()} 0px 3px 0px, ${color.dim(dimStep).toHex()} 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px`
+      const color = RGB.from_hex('#aaa');
+      const shadows = [
+        `${color.dim(dimStep).toHex()} 0px 1px 0px`,
+        `${color.dim(dimStep * 2).toHex()} 0px 2px 0px`,
+        `${color.dim(dimStep * 3).toHex()} 0px 3px 0px`,
+        `${color.dim(dimStep * 4).toHex()} 0px 4px 0px`,
+        `rgba(0, 0, 0, 0.23) 0px 0px 5px`,
+        `rgba(0, 0, 0, 0.43) 0px 1px 3px`,
+        `rgba(0, 0, 0, 0.4) 1px 4px 6px`,
+        `rgba(0, 0, 0, 0.38) 0px 5px 10px`,
+        `rgba(0, 0, 0, 0.25) 3px 7px 12px`
+      ];
+      console.log(shadows.join(', '));
+      return shadows.join(', ');
     },
     toggleLight(status) {
       this.state.text.light = status;
