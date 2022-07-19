@@ -1,29 +1,24 @@
 document.addEventListener('alpine:init', () => {
   Alpine.data('wnca', () => ({
     init() {
-      this.$watch('val.text', this.updateFontSize.bind(this))
+      this.$watch('val.text', this.updateFontSize.bind(this));
+      this.$watch('val.text', this.updateSpelling.bind(this));
+      this.$watch('state.spelling', (ov, nv) => (nv !== ov) && this.updateFonts());
 
-      this.fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
-      console.log(this.filteredFonts())
-      this.setFont(this.fonts[0]);
+      this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
+      this.updateFonts();
     },
+    _fonts: [],
     fonts: [],
-    filteredFonts() {
-      // returns filtered fonts based on font.spelling and this.getSpelling()
-      return this.fonts.filter(font => {
-        return font.spelling.includes(this.spelling);
-      });
-    },
-    get spelling() {
-      // Returns containing spelling like cyr or lat
-      return this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
-    },
+
     tabs: ["Text", "Font", "Color"],
     activeTab: 'Text',
     cache: {
       loadedFonts: []
     },
     state: {
+      spelling: 'lat',
+      font: null,
       color: {
         preview: "",
         detailPreview: ""
@@ -58,6 +53,7 @@ document.addEventListener('alpine:init', () => {
         document.fonts.add(await (new FontFace(font.name, `url(${font.link})`, { style: 'normal', weight: 700 })).load());
       }
       this.val.font = font.name;
+      this.state.font = font
     },
     async setColor(color) {
       this.state.color = color;
@@ -78,7 +74,6 @@ document.addEventListener('alpine:init', () => {
     getDarkShadow() {
       const dimStep = 10;
       const color = RGB.from_hex(this.val.color);
-      console.log(this.val.color, color, `${color.dim(dimStep).toHex()} 0px 1px 0px, ${color.dim(dimStep).toHex()} 0px 2px 0px, ${color.dim(dimStep).toHex()} 0px 3px 0px, ${color.dim(dimStep).toHex()} 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px`);
       return `${color.dim(dimStep).toHex()} 0px 1px 0px, ${color.dim(dimStep).toHex()} 0px 2px 0px, ${color.dim(dimStep).toHex()} 0px 3px 0px, ${color.dim(dimStep).toHex()} 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px`
     },
     toggleLight(status) {
@@ -104,24 +99,33 @@ document.addEventListener('alpine:init', () => {
       this.state.text.x = left + "px";
     },
 
-    updateFontSize() {
-      this.state.text.fontSize = this.state.text.__BASE_SIZE = this.fontBaseSize;
-
-      const previewWidth = this.$refs.preview.clientWidth;
-      const textWidth = this.$refs.text.clientWidth;
-
-
-      this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
-
-      if (this.val.text.length == 0) this.state.text.fontSize = this.fontBaseSize;
-    },
-
     get fontBaseSize() {
       if (this.state.text.__BASE_SIZE == '')
         return parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);
       else return this.state.text.__BASE_SIZE;
     },
 
+    updateFonts() {
+      const fontIsNull = this.state.font == null;
+      const fontHasCurrentSpelling = !fontIsNull && this.state.font.spelling.includes(this.state.spelling);
+
+      this.fonts = this._fonts.filter(font => font.spelling.includes(this.state.spelling));
+      if (fontIsNull || !fontHasCurrentSpelling) this.setFont(this.fonts[0]);
+    },
+
+    updateSpelling() {
+      this.state.spelling = this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
+    },
+    updateFontSize() {
+      this.state.text.fontSize = this.state.text.__BASE_SIZE = this.fontBaseSize;
+
+      const previewWidth = this.$refs.preview.clientWidth;
+      const textWidth = this.$refs.text.clientWidth;
+
+      this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
+
+      if (this.val.text.length == 0) this.state.text.fontSize = this.fontBaseSize;
+    },
 
     text: {
       ['x-ref']: 'text',

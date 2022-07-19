@@ -8,32 +8,26 @@ document.addEventListener('alpine:init', function () {
 
     return {
       init: function init() {
-        this.$watch('val.text', this.updateFontSize.bind(this));
-        this.fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
-        console.log(this.filteredFonts());
-        this.setFont(this.fonts[0]);
-      },
-      fonts: [],
-      filteredFonts: function filteredFonts() {
         var _this = this;
 
-        // returns filtered fonts based on font.spelling and this.getSpelling()
-        return this.fonts.filter(function (font) {
-          return font.spelling.includes(_this.spelling);
+        this.$watch('val.text', this.updateFontSize.bind(this));
+        this.$watch('val.text', this.updateSpelling.bind(this));
+        this.$watch('state.spelling', function (ov, nv) {
+          return nv !== ov && _this.updateFonts();
         });
+        this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
+        this.updateFonts();
       },
-
-      get spelling() {
-        // Returns containing spelling like cyr or lat
-        return this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
-      },
-
+      _fonts: [],
+      fonts: [],
       tabs: ["Text", "Font", "Color"],
       activeTab: 'Text',
       cache: {
         loadedFonts: []
       },
       state: {
+        spelling: 'lat',
+        font: null,
         color: {
           preview: "",
           detailPreview: ""
@@ -84,8 +78,9 @@ document.addEventListener('alpine:init', function () {
 
               case 6:
                 this.val.font = font.name;
+                this.state.font = font;
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -114,7 +109,6 @@ document.addEventListener('alpine:init', function () {
       getDarkShadow: function getDarkShadow() {
         var dimStep = 10;
         var color = RGB.from_hex(this.val.color);
-        console.log(this.val.color, color, "".concat(color.dim(dimStep).toHex(), " 0px 1px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 2px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 3px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px"));
         return "".concat(color.dim(dimStep).toHex(), " 0px 1px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 2px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 3px 0px, ").concat(color.dim(dimStep).toHex(), " 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px");
       },
       toggleLight: function toggleLight(status) {
@@ -136,6 +130,24 @@ document.addEventListener('alpine:init', function () {
         this.state.text.y = top + "px";
         this.state.text.x = left + "px";
       },
+
+      get fontBaseSize() {
+        if (this.state.text.__BASE_SIZE == '') return parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);else return this.state.text.__BASE_SIZE;
+      },
+
+      updateFonts: function updateFonts() {
+        var _this2 = this;
+
+        var fontIsNull = this.state.font == null;
+        var fontHasCurrentSpelling = !fontIsNull && this.state.font.spelling.includes(this.state.spelling);
+        this.fonts = this._fonts.filter(function (font) {
+          return font.spelling.includes(_this2.state.spelling);
+        });
+        if (fontIsNull || !fontHasCurrentSpelling) this.setFont(this.fonts[0]);
+      },
+      updateSpelling: function updateSpelling() {
+        this.state.spelling = this.val.text.match(/[а-я]/i) ? 'cyr' : 'lat';
+      },
       updateFontSize: function updateFontSize() {
         this.state.text.fontSize = this.state.text.__BASE_SIZE = this.fontBaseSize;
         var previewWidth = this.$refs.preview.clientWidth;
@@ -143,11 +155,6 @@ document.addEventListener('alpine:init', function () {
         this.state.text.fontSize = Math.min(this.state.text.__BASE_SIZE, this.state.text.fontSize / (textWidth / previewWidth));
         if (this.val.text.length == 0) this.state.text.fontSize = this.fontBaseSize;
       },
-
-      get fontBaseSize() {
-        if (this.state.text.__BASE_SIZE == '') return parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);else return this.state.text.__BASE_SIZE;
-      },
-
       text: (_text = {}, _defineProperty(_text, 'x-ref', 'text'), _defineProperty(_text, ':style', "{\n          top: state.text.y,\n          left: state.text.x,\n          fontFamily: val.font,\n          fontSize: state.text.fontSize + 'px',\n          textAlign: state.text.align,\n          textShadow: state.text.light ? getLightShadow() : getDarkShadow(),\n          color: state.text.light ? 'white' : val.color,\n        }"), _defineProperty(_text, 'x-html', "val.text.replaceAll('\\n', '<br>') || 'Your Text'"), _defineProperty(_text, '@mousedown', function mousedown(e) {
         e = e || window.event;
         e.preventDefault(); // get the mouse cursor position at startup:
