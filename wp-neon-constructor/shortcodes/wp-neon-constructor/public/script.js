@@ -54,6 +54,7 @@ document.addEventListener('alpine:init', () => {
       }
       this.val.font = font.name;
       this.state.font = font
+      this.updateFontSize();
     },
     async setColor(color) {
       this.state.color = color;
@@ -112,9 +113,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     get fontBaseSize() {
-      if (this.state.text.__BASE_SIZE == '')
-        return parseInt(getComputedStyle(this.$refs.text).fontSize.match(/\d*/)[0]);
-      else return this.state.text.__BASE_SIZE;
+      return this.state.font.base_size;
     },
 
     updateFonts() {

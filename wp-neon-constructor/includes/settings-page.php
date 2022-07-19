@@ -79,7 +79,7 @@ if (function_exists('acf_add_local_field_group')) :
             'conditional_logic' => 0,
             'wrapper' => array(
               'width' => '',
-              'class' => '',
+              'class' => 'name',
               'id' => '',
             ),
             'default_value' => '',
@@ -99,7 +99,7 @@ if (function_exists('acf_add_local_field_group')) :
             'conditional_logic' => 0,
             'wrapper' => array(
               'width' => '',
-              'class' => '',
+              'class' => 'spelling',
               'id' => '',
             ),
             'choices' => array(
@@ -123,6 +123,29 @@ if (function_exists('acf_add_local_field_group')) :
             'acfe_field_group_condition' => 0,
           ),
           array(
+            'key' => 'field_62d6be92c002b',
+            'label' => 'Base size',
+            'name' => 'base_size',
+            'type' => 'number',
+            'instructions' => '',
+            'required' => 1,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => 'font-base-size',
+              'id' => '',
+            ),
+            'required_message' => '',
+            'default_value' => 96,
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'min' => '',
+            'max' => '',
+            'step' => '',
+            'acfe_field_group_condition' => 0,
+          ),
+          array(
             'key' => 'field_62751618f2605',
             'label' => 'Preview',
             'name' => 'preview',
@@ -132,7 +155,7 @@ if (function_exists('acf_add_local_field_group')) :
             'conditional_logic' => 0,
             'wrapper' => array(
               'width' => '',
-              'class' => '',
+              'class' => 'preview',
               'id' => '',
             ),
             'uploader' => '',
@@ -159,7 +182,7 @@ if (function_exists('acf_add_local_field_group')) :
             'conditional_logic' => 0,
             'wrapper' => array(
               'width' => '',
-              'class' => '',
+              'class' => 'file',
               'id' => '',
             ),
             'uploader' => '',

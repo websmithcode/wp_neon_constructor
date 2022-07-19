@@ -26,8 +26,9 @@ namespace WPNeonConstructor;
     return [
       'name' => $font['name'],
       'spelling' => $font['spelling'],
+      'base_size' => $font['base_size'],
       'preview' => $font['preview']['sizes']['FontPreview'],
-      'link' => $font['file']['url']
+      'link' => $font['file']['url'],
     ];
   }, $settings['fonts']);
   $colors = array_map(function ($color) {
