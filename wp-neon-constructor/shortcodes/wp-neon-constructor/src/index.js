@@ -135,6 +135,11 @@ document.addEventListener("alpine:init", () => {
 
       if (this.val.text.length == 0)
         this.state.text.fontSize = this.fontBaseSize;
+
+      // If text is out of preview - move it to right by delta of collision
+      if (parseInt(this.state.text.x) + textWidth > previewWidth) {
+        this.state.text.x = previewWidth - textWidth + 'px';
+      }
     },
 
     text: {
