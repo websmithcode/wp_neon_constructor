@@ -6,6 +6,7 @@ document.addEventListener("alpine:init", () => {
       this.colors = JSON.parse(this.$refs.colors_json.innerHTML);
       this.$watch("val.text", () => this.onTextChange());
       this.$watch("val.font", () => this.onFontChange());
+      this.$watch("state.underlay", () => this.onUnderlayChange());
       this.$watch("state.spelling", (o, n) => this.onSpellingChange(o, n));
 
       this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
@@ -25,6 +26,8 @@ document.addEventListener("alpine:init", () => {
       loadedFonts: [],
     },
     state: {
+      dragged: false,
+      underlay: "no",
       spelling: "lat",
       font: null,
       color: {
@@ -51,6 +54,9 @@ document.addEventListener("alpine:init", () => {
       color: "",
     },
 
+    onUnderlayChange() {
+
+    },
     onTextChange() {
       this.updateFontSize();
       this.updateSpelling();
@@ -71,6 +77,10 @@ document.addEventListener("alpine:init", () => {
     setTab(tab) {
       this.activeTab = tab;
     },
+    setUnderlay(underlay) {
+      this.state.underlay = underlay;
+    },
+
 
     async setFont(font) {
       if (!this.cache.loadedFonts.includes(font.name)) {
@@ -100,6 +110,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     onTextDrag(e) {
+      this.state.dragged = true;
       const { dragStart, state } = onDrag(e, this.$refs.text, this.$refs.preview, this.state.text.dragStart);
       this.state.text.dragStart = dragStart;
       this.state.text.x = state.x;
@@ -142,6 +153,9 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
+    get textValue() {
+      return this.val.text.replaceAll('\\n', '<br>') || 'Your Text'
+    },
     text: {
       ["x-ref"]: "text",
 
@@ -154,7 +168,6 @@ document.addEventListener("alpine:init", () => {
           textShadow: state.text.light ? getLightShadow() : getDarkShadow(),
           color: state.text.light ? 'white' : val.color,
         }`,
-      "x-html": "val.text.replaceAll('\\n', '<br>') || 'Your Text'",
       ["@mousedown"](e) {
         e = e || window.event;
         e.preventDefault();

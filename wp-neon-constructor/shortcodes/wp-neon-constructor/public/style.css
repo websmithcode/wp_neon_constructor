@@ -1,3 +1,5 @@
+/* v1 */
+
 .absolute {
   position: absolute;
 }
@@ -26,6 +28,7 @@
   width: 100%;
   margin: 0 auto;
 }
+
 #wnca .tabs {
   --height: 36px;
   display: flex;
@@ -135,6 +138,12 @@
 }
 
 
+#wnca .tab-content .text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 #wnca .tab-content .text textarea {
   line-height: 1.1rem;
   text-align: center;
@@ -176,6 +185,57 @@
   box-shadow: #000 1px 1px 5px;
   border: #000 solid 2px;
 }
+
+
+/* Three states switcher with buttons */
+#wnca .tab-content .underlay {
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+#wnca .tab-content .underlay .underlay-switcher {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#wnca .tab-content .underlay .underlay-switcher button {
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-weight: normal;
+  border-right: 1px solid #555;
+}
+
+#wnca .tab-content .underlay .underlay-switcher button:last-child {
+  border-right: none;
+}
+
+#wnca .tab-content .underlay .underlay-switcher button:hover {
+  background: inherit;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-weight: normal;
+  box-shadow: none !important;
+}
+
+#wnca .tab-content .underlay .underlay-switcher button.active {
+  color: white;
+  background-color: black;
+}
+
+
+
 
 #wnca .tab-content .fonts .title {
   text-align: center;
@@ -339,7 +399,7 @@
   height: 100%;
 }
 
-#wnca .preview .switcher {
+#wnca .preview .lightswitcher {
   background: lightgray;
   position: absolute;
   top: 10px;
@@ -350,11 +410,11 @@
   user-select: none;
 }
 
-#wnca .preview .switcher * {
+#wnca .preview .lightswitcher * {
   padding: 5px;
 }
 
-#wnca .preview .switcher::before {
+#wnca .preview .lightswitcher::before {
   content: ' ';
   z-index: 0;
   position: absolute;
@@ -366,11 +426,13 @@
   transition: left .4s;
 }
 
-#wnca .preview .switcher.off::before {
+#wnca .preview .lightswitcher.off::before {
   left: 50%;
 }
 
 #wnca .preview .text {
+  --x-offset: 0px;
+  --y-offset: 0px;
   padding: 20px 40px;
   position: absolute;
   font-size: 56px;
@@ -381,10 +443,27 @@
   color: white;
 }
 
+#wnca .preview .text.underlay__rectangle {
+  --offset: 10px;
+  --y-offset: calc(var(--offset) * -1);
+  transform: translate(var(--x-offset), var(--y-offset));
+}
+
+#wnca .preview .text.underlay__rectangle:not(.dragged) {
+  --x-offset: calc(var(--offset) * -1);
+}
+
+#wnca .preview .text.underlay__rectangle .text__wrapper {
+  background-color: #0009;
+  border-radius: 10px;
+  padding: var(--offset);
+}
+
 /* Feedback form */
 #wnca-form {
   width: 100%;
 }
+
 #wnca-form .form-body {
   --border: solid 2px black;
   background-color: #fff;
@@ -399,25 +478,30 @@
   #wnca .preview .text {
     font-size: 96px;
   }
-  #wnca .tab-content .fonts-items{
+
+  #wnca .tab-content .fonts-items {
     grid-template-columns: repeat(4, 1fr);
   }
+
   #wnca .tab-content .color-items .color {
     width: 12%;
   }
 
-  #wnca .preview .switcher {
+  #wnca .preview .lightswitcher {
     top: 20px;
     left: 20px;
   }
 }
+
 @media screen and (min-width: 1200px) {
-  #wnca .tab-content .text textarea{
+  #wnca .tab-content .text textarea {
     font-size: 20px;
   }
+
   #wnca {
     grid-template-columns: 1fr 2fr;
   }
+
   #wnca-form {
     grid-column: 1 / span 2;
   }

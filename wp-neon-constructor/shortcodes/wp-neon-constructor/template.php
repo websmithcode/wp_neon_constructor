@@ -27,6 +27,15 @@ Press Enter/Return for a new line"></textarea>
               <button class="align-center" :class="{active: 'center' ==state.text.align}" @click="state.text.align = 'center'"><span class="dashicons dashicons-editor-aligncenter"></span></button>
               <button class="align-right" :class="{active: 'right' == state.text.align}" @click="state.text.align = 'right'"><span class="dashicons dashicons-editor-alignright"></span></button>
             </div>
+            <div class="underlay">
+              <!-- Swither with three states: no, rectangle, by form -->
+              <div>Underlay:</div>
+              <div class="underlay-switcher">
+                <button :class="{active: state.underlay == 'no'}" @click="setUnderlay('no')">No</button>
+                <button :class="{active: state.underlay == 'rectangle'}" @click="setUnderlay('rectangle')">Rectangle</button>
+                <button :class="{active: state.underlay == 'byform'}" @click="setUnderlay('byform')">By form</button>
+              </div>
+            </div>
           </div>
           <div class="fonts" x-show="activeTab=='Font'" x-transition.in.duration.600>
             <div class="title">Choose font</div>
@@ -70,11 +79,13 @@ Press Enter/Return for a new line"></textarea>
   <div class="preview-container">
     <div class="preview-wrapper">
       <div class="preview" style="background-image: url(<?php echo $settings['background_image']['url']; ?>);" x-ref="preview">
-        <div class="switcher" x-data="{enabled: true}" :class="{off: !enabled}" @click="toggleLight(enabled = !enabled);">
+        <div class="lightswitcher" x-data="{enabled: true}" :class="{off: !enabled}" @click="toggleLight(enabled = !enabled);">
           <div class="off">Off</div>
           <div class="on">On</div>
         </div>
-        <div class="text" x-bind="text"></div>
+        <div class="text" x-bind="text" :class="'underlay__' + state.underlay + (state.dragged ? '' : ' dragged')">
+          <div class="text__wrapper"><span x-html="textValue"></span></div>
+        </div>
       </div>
     </div>
   </div>
