@@ -32,7 +32,7 @@ Press Enter/Return for a new line"></textarea>
             <div class="title">Choose font</div>
             <script type="json" x-ref="fonts_json">
               <?php echo json_encode($fonts); ?>
-          </script>
+            </script>
             <div class="fonts-items">
               <template x-for="font in fonts">
                 <div class="font" @click="setFont(font)" :class="{active: font.name == val.font}">
@@ -78,7 +78,7 @@ Press Enter/Return for a new line"></textarea>
       </div>
     </div>
   </div>
-  
+
   <template x-teleport="#wnca-form form">
     <div class="fields">
       <input type="text" :value="val.text  || 'Your text (Default value)'" name="text" hidden>

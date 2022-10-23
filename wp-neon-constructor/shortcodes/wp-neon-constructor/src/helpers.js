@@ -77,6 +77,10 @@ export class RGB {
   }
 }
 
+export function getSpelling(text) {
+  return text.match(/[а-я]/i) ? "cyr" : "lat";
+}
+
 export function onDrag(e, $el, $container, dragStart = { x: 0, y: 0 }) {
   e.preventDefault();
   // calculate the new cursor position:

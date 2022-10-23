@@ -1,4 +1,4 @@
-import { getDarkShadow, getLightShadow, onDrag } from "./helpers";
+import { getDarkShadow, getLightShadow, getSpelling, onDrag } from "./helpers";
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("wnca", () => ({
@@ -6,7 +6,7 @@ document.addEventListener("alpine:init", () => {
       this.colors = JSON.parse(this.$refs.colors_json.innerHTML);
       this.$watch("val.text", () => this.onTextChange());
       this.$watch("val.font", () => this.onFontChange());
-      this.$watch("state.spelling", () => this.onSpellingChange());
+      this.$watch("state.spelling", (o, n) => this.onSpellingChange(o, n));
 
       this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
       this.updateFonts();
@@ -122,7 +122,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     updateSpelling() {
-      this.state.spelling = this.val.text.match(/[а-я]/i) ? "cyr" : "lat";
+      this.state.spelling = getSpelling(this.val.text);
     },
     updateFontSize() {
       const previewWidth = this.$refs.preview.clientWidth;
