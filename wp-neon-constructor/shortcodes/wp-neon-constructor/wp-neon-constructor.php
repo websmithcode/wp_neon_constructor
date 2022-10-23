@@ -14,7 +14,7 @@ namespace WPNeonConstructor;
   ]);
   $wp_neon_constructor->enqueue_script([
     'name' => 'wp_neon_constructor-shortcode-script',
-    'path' => $public_path . 'script.js',
+    'path' => $public_path . 'main.js',
     'in_footer' => true
   ]);
 

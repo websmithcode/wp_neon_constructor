@@ -3,6 +3,9 @@
 namespace WPNeonConstructor;
 ?>
 <div id="wnca" x-data="wnca" x-cloak>
+  <script type="json" x-ref="colors_json">
+    <?php echo json_encode($colors); ?>
+  </script>
   <div class="form">
     <div class="constructor-form">
       <div class="header">
@@ -41,10 +44,7 @@ Press Enter/Return for a new line"></textarea>
             </div>
           </div>
           <div class="colors" x-show="activeTab=='Color'" x-transition.in.duration.600>
-            <script type="json" x-ref="colors_json">
-              <?php echo json_encode($colors); ?>
-          </script>
-            <div class="color-items" x-data="{colors: JSON.parse($refs.colors_json.innerHTML)}" x-init="setColor(colors[0]);">
+            <div class="color-items" x-data="{}" x-init="setColor(colors[0]);">
               <template x-for="color in colors">
                 <div class="color" :class="{active: color.color == val.color}" :data-color="color.color" @click="setColor(color)">
                   <div class="icon" :style="{color: color.color}">
@@ -78,15 +78,18 @@ Press Enter/Return for a new line"></textarea>
       </div>
     </div>
   </div>
-
+  
+  <template x-teleport="#wnca-form form">
+    <div class="fields">
+      <input type="text" :value="val.text  || 'Your text (Default value)'" name="text" hidden>
+      <input type="text" :value="val.font" name="font" hidden>
+      <input type="text" :value="getColorByHex(val.color).name" name="color" hidden>
+      <input type="text" :value="val.color" name="color_hex" hidden>
+    </div>
+  </template>
   <div id="wnca-form" class="feedback-form" x-ref="feedbackForm">
     <div class="form-body">
       <?php echo $settings['popup_form'] ?>
-    </div>
-    <div class="fields">
-      <input type="text" x-model="val.text" name="text" hidden>
-      <input type="text" x-model="val.font" name="font" hidden>
-      <input type="text" x-model="val.color" name="color" hidden>
     </div>
   </div>
 </div>
