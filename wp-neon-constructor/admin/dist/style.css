@@ -1,0 +1,13 @@
+body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .file {
+  grid-column: 2/span 2;
+}
+body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields > .acf-field {
+  padding: 5px;
+}
+body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields > .acf-field .acf-label label {
+  margin: 0;
+}

@@ -14,12 +14,33 @@ namespace WPNeonConstructor;
   ]);
   $wp_neon_constructor->enqueue_script([
     'name' => 'wp_neon_constructor-shortcode-script',
-    'path' => $public_path . 'script.js',
+    'path' => $public_path . 'main.js',
     'in_footer' => true
   ]);
 
 
   $settings = get_fields('wp-neon-constructor');
   do_action('qm/debug', $settings['colors']);
+
+  $fonts = array_map(function ($font) {
+    return [
+      'name' => $font['name'],
+      'spelling' => $font['spelling'],
+      'base_size' => $font['base_size'],
+      'preview' => $font['preview']['sizes']['FontPreview'],
+      'link' => $font['file']['url'],
+    ];
+  }, $settings['fonts']);
+  $colors = array_map(function ($color) {
+    return [
+      'name' => $color['name'],
+      'color' => $color['color'],
+      'description' => $color['description'],
+      'preview' => $color['preview']['sizes']['NeonPreview'],
+      'detailPreview' => $color['detail-preview']['url']
+    ];
+  }, $settings['colors']);
+
+
   include_once 'template.php';
 })();
