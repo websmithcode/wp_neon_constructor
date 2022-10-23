@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Neon Constructor
  * Description: Template of plagin from dev kit
- * Version: 0.2.1
+ * Version: 0.4.0
  * Author: Alexander Smith
  * Author URI: https://t.me/alxndr_smith
  */

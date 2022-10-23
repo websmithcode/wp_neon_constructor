@@ -83,8 +83,13 @@ Press Enter/Return for a new line"></textarea>
           <div class="off">Off</div>
           <div class="on">On</div>
         </div>
-        <div class="text" x-bind="text" :class="'underlay__' + state.underlay + (state.dragged ? '' : ' dragged')">
-          <div class="text__wrapper"><span x-html="textValue"></span></div>
+        <div x-bind="textBind">
+          <div class="text__wrapper">
+            <span x-bind="textValueBind"></span>
+            <template x-if="state.underlay == 'byform'">
+              <span x-bind="textUnderlayBind"></span>
+            </template>
+          </div>
         </div>
       </div>
     </div>

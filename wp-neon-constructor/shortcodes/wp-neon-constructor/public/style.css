@@ -439,8 +439,11 @@
   cursor: move;
   user-select: none;
   line-height: .98;
-  transition: text-shadow 1s, color 1s;
   color: white;
+}
+
+#wnca .preview .text .text-value {
+  transition: text-shadow 1s, color 1s;
 }
 
 #wnca .preview .text.underlay__rectangle {
@@ -457,6 +460,22 @@
   background-color: #0009;
   border-radius: 10px;
   padding: var(--offset);
+}
+
+#wnca .preview .text.underlay__byform .text__wrapper {
+  position: relative;
+}
+
+#wnca .preview .text.underlay__byform .text__wrapper .text-value {
+  position: relative;
+  z-index: 2;
+}
+
+#wnca .preview .text.underlay__byform .text__wrapper .text-underlay-byform {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
 
 /* Feedback form */

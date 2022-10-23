@@ -156,8 +156,24 @@ document.addEventListener("alpine:init", () => {
     get textValue() {
       return this.val.text.replaceAll('\\n', '<br>') || 'Your Text'
     },
-    text: {
+    textValueBind: {
+      ["x-html"]: "textValue",
+      ":class": "'text-value'",
+      ":style": `{
+          textShadow: state.text.light ? getLightShadow() : getDarkShadow(),
+          color: state.text.light ? 'white' : val.color,
+      }`
+    },
+    textUnderlayBind: {
+      ["x-html"]: "textValue",
+      ":class": "'text-underlay-byform'",
+      ":style": `{
+        '-webkit-text-stroke': '65px #0009',
+      }`
+    },
+    textBind: {
       ["x-ref"]: "text",
+      ":class": "'text' + ' underlay__' + state.underlay + (state.dragged ? '' : ' dragged')",
 
       ":style": `{
           top: state.text.y,
@@ -165,8 +181,6 @@ document.addEventListener("alpine:init", () => {
           fontFamily: val.font,
           fontSize: state.text.fontSize + 'px',
           textAlign: state.text.align,
-          textShadow: state.text.light ? getLightShadow() : getDarkShadow(),
-          color: state.text.light ? 'white' : val.color,
         }`,
       ["@mousedown"](e) {
         e = e || window.event;
