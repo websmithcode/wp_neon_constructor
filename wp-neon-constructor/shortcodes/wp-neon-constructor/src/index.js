@@ -1,14 +1,12 @@
+import { getDarkShadow, getLightShadow, onDrag } from "./helpers";
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("wnca", () => ({
     init() {
       this.colors = JSON.parse(this.$refs.colors_json.innerHTML);
-      this.$watch("val.text", this.updateFontSize.bind(this));
-      this.$watch("val.text", this.updateSpelling.bind(this));
-      this.$watch("val.font", this.updateFontSize.bind(this));
-      this.$watch(
-        "state.spelling",
-        (ov, nv) => nv !== ov && this.updateFonts()
-      );
+      this.$watch("val.text", () => this.onTextChange());
+      this.$watch("val.font", () => this.onFontChange());
+      this.$watch("state.spelling", () => this.onSpellingChange());
 
       this._fonts = JSON.parse(this.$refs.fonts_json.innerHTML);
       this.updateFonts();
@@ -53,6 +51,23 @@ document.addEventListener("alpine:init", () => {
       color: "",
     },
 
+    onTextChange() {
+      this.updateFontSize();
+      this.updateSpelling();
+    },
+    onFontChange() {
+      this.updateFontSize();
+    },
+    onSpellingChange(ov, nv) {
+      if (nv !== ov) this.updateFonts();
+    },
+    onColorChange(color) {
+      this.setColor(color);
+    },
+    onTabChange(tab) {
+      this.setTab(tab);
+    },
+
     setTab(tab) {
       this.activeTab = tab;
     },
@@ -75,61 +90,20 @@ document.addEventListener("alpine:init", () => {
       this.val.color = color.color;
     },
     getLightShadow() {
-      const shadows = [
-        `white 0px 0px 5px`,
-        `white 0px 0px 10px`,
-        `${this.val.color} 0px 0px 20px`,
-        `${this.val.color} 0px 0px 30px`,
-        `${this.val.color} 0px 0px 40px`,
-        `${this.val.color} 0px 0px 55px`,
-        `${this.val.color} 0px 0px 75px`,
-      ];
-      return shadows.join(", ");
+      return getLightShadow(this.val.color);
     },
     getDarkShadow() {
-      const dimStep = 10;
-      const color = RGB.from_hex("#aaa");
-      const shadows = [
-        `${color.dim(dimStep).toHex()} 0px 1px 0px`,
-        `${color.dim(dimStep * 2).toHex()} 0px 2px 0px`,
-        `${color.dim(dimStep * 3).toHex()} 0px 3px 0px`,
-        `${color.dim(dimStep * 4).toHex()} 0px 4px 0px`,
-        `rgba(0, 0, 0, 0.23) 0px 0px 5px`,
-        `rgba(0, 0, 0, 0.43) 0px 1px 3px`,
-        `rgba(0, 0, 0, 0.4) 1px 4px 6px`,
-        `rgba(0, 0, 0, 0.38) 0px 5px 10px`,
-        `rgba(0, 0, 0, 0.25) 3px 7px 12px`,
-      ];
-      console.log(shadows.join(", "));
-      return shadows.join(", ");
+      return getDarkShadow()
     },
     toggleLight(status) {
       this.state.text.light = status;
     },
 
     onTextDrag(e) {
-      const $el = this.$refs.text;
-      const $preview = this.$refs.preview;
-
-      e.preventDefault();
-      // calculate the new cursor position:
-      const innerBorderOffset = 10;
-      const pos1 = this.state.text.dragStart.x - e.clientX;
-      const pos2 = this.state.text.dragStart.y - e.clientY;
-      this.state.text.dragStart.x = e.clientX;
-      this.state.text.dragStart.y = e.clientY;
-
-      const top = Math.min(
-        $preview.clientHeight - $el.clientHeight - innerBorderOffset,
-        Math.max(0 + innerBorderOffset, $el.offsetTop - pos2)
-      );
-      const left = Math.min(
-        $preview.clientWidth - $el.clientWidth - innerBorderOffset,
-        Math.max(0 + innerBorderOffset, $el.offsetLeft - pos1)
-      );
-      // set the element's new position:
-      this.state.text.y = top + "px";
-      this.state.text.x = left + "px";
+      const { dragStart, state } = onDrag(e, this.$refs.text, this.$refs.preview, this.state.text.dragStart);
+      this.state.text.dragStart = dragStart;
+      this.state.text.x = state.x;
+      this.state.text.y = state.y;
     },
 
     get fontBaseSize() {

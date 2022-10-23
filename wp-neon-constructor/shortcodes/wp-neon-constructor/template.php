@@ -12,7 +12,7 @@ namespace WPNeonConstructor;
         <ul class="tabs">
           <template x-for="tab in tabs">
             <li class="tab" :class="{active: activeTab==tab}" @hover="alert('hover')">
-              <button x-text="tab" @click="setTab(tab)"></button>
+              <button x-text="tab" @click="onTabChange(tab)"></button>
             </li>
           </template>
         </ul>
@@ -44,9 +44,9 @@ Press Enter/Return for a new line"></textarea>
             </div>
           </div>
           <div class="colors" x-show="activeTab=='Color'" x-transition.in.duration.600>
-            <div class="color-items" x-data="{}" x-init="setColor(colors[0]);">
+            <div class="color-items" x-data="{}" x-init="onColorChange(colors[0]);">
               <template x-for="color in colors">
-                <div class="color" :class="{active: color.color == val.color}" :data-color="color.color" @click="setColor(color)">
+                <div class="color" :class="{active: color.color == val.color}" :data-color="color.color" @click="onColorChange(color)">
                   <div class="icon" :style="{color: color.color}">
                     <i class="dashicons dashicons-lightbulb"></i>
                     <i class="w dashicons dashicons-lightbulb"></i>
