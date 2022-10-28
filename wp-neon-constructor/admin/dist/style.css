@@ -1,13 +1,47 @@
 body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
 }
-body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .file {
-  grid-column: 2/span 2;
+body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields > * {
+  width: 100%;
 }
 body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields > .acf-field {
   padding: 5px;
 }
 body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields > .acf-field .acf-label label {
   margin: 0;
+}
+@media screen and (min-width: 480px) {
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-name {
+    width: 50%;
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-spelling {
+    width: 50%;
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-preview {
+    width: 30%;
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-file {
+    width: 70%;
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-base-size {
+    width: 50%;
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-underlay-by-form-size {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1500px) {
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-name {
+    width: max(240px, 35%);
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-spelling {
+    width: max(150px, 35%);
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-base-size {
+    width: max(100px, 15%);
+  }
+  body.toplevel_page_wp-neon-constructor .acf-field.fonts td.acf-fields .font-underlay-by-form-size {
+    width: max(100px, 15%);
+  }
 }

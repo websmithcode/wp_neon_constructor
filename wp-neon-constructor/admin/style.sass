@@ -1,13 +1,35 @@
 body.toplevel_page_wp-neon-constructor
   .acf-field.fonts
     td.acf-fields
-      display: grid
-      grid-template-columns: repeat(3, 1fr)
-
-      .file
-        grid-column: 2 / span 2
+      display: flex
+      flex-wrap: wrap
+      >*
+        width: 100%
 
       > .acf-field
         padding: 5px
         .acf-label label
           margin: 0
+
+      @media screen and (min-width: 480px)
+        .font-name
+          width: 50%
+        .font-spelling
+          width: 50%
+        .font-preview
+          width: 30%
+        .font-file
+          width: 70%
+        .font-base-size
+          width: 50%
+        .font-underlay-by-form-size
+          width: 50%
+      @media screen and (min-width: 1500px)
+        .font-name
+          width: max(240px, 35%)
+        .font-spelling
+          width: max(150px, 35%)
+        .font-base-size
+          width: max(100px, 15%)
+        .font-underlay-by-form-size
+          width: max(100px, 15%)

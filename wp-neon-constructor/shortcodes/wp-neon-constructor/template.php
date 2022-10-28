@@ -84,7 +84,7 @@ Press Enter/Return for a new line"></textarea>
           <div class="on">On</div>
         </div>
         <div x-bind="textBind">
-          <div class="text__wrapper">
+          <div x-bind="textWrapperBind">
             <span x-bind="textValueBind"></span>
             <template x-if="state.underlay == 'byform'">
               <span x-bind="textUnderlayBind"></span>

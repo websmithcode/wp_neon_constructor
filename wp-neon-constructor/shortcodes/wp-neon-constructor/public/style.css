@@ -457,7 +457,7 @@
 }
 
 #wnca .preview .text.underlay__rectangle .text__wrapper {
-  background-color: #0009;
+  /* background-color: #0009; */
   border-radius: 10px;
   padding: var(--offset);
 }

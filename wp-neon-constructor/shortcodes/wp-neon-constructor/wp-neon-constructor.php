@@ -29,6 +29,7 @@ namespace WPNeonConstructor;
       'base_size' => $font['base_size'],
       'preview' => $font['preview']['sizes']['FontPreview'],
       'link' => $font['file']['url'],
+      'underlay_by_form_size' => $font['underlay_by_form_size'],
     ];
   }, $settings['fonts']);
   $colors = array_map(function ($color) {
